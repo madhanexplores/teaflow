@@ -1,0 +1,6 @@
+{
+  "name": "Tea Shop Manager",
+  "description": "Simple and fast sales, expenses, and estimated profit tracking tailored for tea shops, cafes, and chai stalls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

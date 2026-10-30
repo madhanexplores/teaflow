@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-cream: #FAF7F2;
+    --bg-cream-card: #FFFFFF;
+    --bg-cream-subtle: #F3ECE1;
+    --tea-brown-dark: #2B1810;
+    --tea-brown-medium: #4A2E1E;
+    --tea-brown-light: #7A533E;
+    --tea-green: #1E5E3A;
+    --tea-green-light: #2D7D46;
+    --tea-green-bg: #EAF4EE;
+    --chai-amber: #D97706;
+  }
+
+  .dark {
+    --bg-cream: #14100D;
+    --bg-cream-card: #1F1914;
+    --bg-cream-subtle: #2A221C;
+    --tea-brown-dark: #F3ECE1;
+    --tea-brown-medium: #D5C2B1;
+    --tea-brown-light: #A8907E;
+    --tea-green: #4ADE80;
+    --tea-green-light: #22C55E;
+    --tea-green-bg: #143021;
+    --chai-amber: #F59E0B;
+  }
+
+  body {
+    background-color: var(--bg-cream);
+    color: #2B1810;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  .dark body {
+    color: #F3ECE1;
+  }
+}
+
+/* Custom scrollbar for transaction lists and modals */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 80, 50, 0.2);
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(220, 200, 180, 0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 80, 50, 0.4);
+}

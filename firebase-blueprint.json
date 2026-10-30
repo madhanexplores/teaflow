@@ -1,0 +1,447 @@
+{
+  "entities": {
+    "Sale": {
+      "title": "Sale",
+      "description": "A daily or transaction-level tea shop sales record",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the shop owner who recorded the sale",
+          "maxLength": 128
+        },
+        "amount": {
+          "type": "number",
+          "description": "Sales revenue amount in INR"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of the sales entry in YYYY-MM-DD format",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "maxLength": 10
+        },
+        "note": {
+          "type": "string",
+          "description": "Optional note or sales source (e.g., Counter cash, UPI)",
+          "maxLength": 250
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp in ISO 8601 string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp in ISO 8601 string",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "amount", "date", "createdAt", "updatedAt"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "An expense record for the tea shop (ingredients, utilities, rent, staff salary, etc.)",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the shop owner who recorded the expense",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "description": "Name or item description of the expense",
+          "maxLength": 120
+        },
+        "amount": {
+          "type": "number",
+          "description": "Expense cost amount in INR"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category such as Milk, Tea powder, Sugar, Gas, Staff salary, etc.",
+          "maxLength": 60
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of expense in YYYY-MM-DD format",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "maxLength": 10
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional detailed notes or invoice number",
+          "maxLength": 250
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp in ISO 8601 string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp in ISO 8601 string",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "name", "amount", "category", "date", "createdAt", "updatedAt"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Shop settings and custom categories for the tea shop owner",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the shop owner",
+          "maxLength": 128
+        },
+        "shopName": {
+          "type": "string",
+          "description": "Display name of the tea shop",
+          "maxLength": 80
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency symbol",
+          "maxLength": 10
+        },
+        "customCategories": {
+          "type": "array",
+          "description": "List of user-defined custom expense categories"
+        },
+        "theme": {
+          "type": "string",
+          "description": "Theme preference: light or dark",
+          "maxLength": 10
+        },
+        "defaultDateFilter": {
+          "type": "string",
+          "description": "Default date filter preset",
+          "maxLength": 20
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp in ISO 8601 string",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "shopName", "currency", "updatedAt"]
+    },
+    "Worker": {
+      "title": "Worker",
+      "description": "Employee profile for tea stall staff and helpers",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the shop owner",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "description": "Worker full name",
+          "maxLength": 120
+        },
+        "phone": {
+          "type": "string",
+          "description": "Optional contact number",
+          "maxLength": 25
+        },
+        "wageType": {
+          "type": "string",
+          "description": "Wage frequency: daily or monthly",
+          "enum": ["daily", "monthly"],
+          "maxLength": 10
+        },
+        "wageAmount": {
+          "type": "number",
+          "description": "Daily wage rate or monthly base salary in INR"
+        },
+        "offDayPaid": {
+          "type": "boolean",
+          "description": "Whether weekly off days are paid or unpaid"
+        },
+        "prorationMethod": {
+          "type": "string",
+          "description": "Monthly salary calculation divisor: calendar_days, fixed_30, or working_26",
+          "enum": ["calendar_days", "fixed_30", "working_26"],
+          "maxLength": 20
+        },
+        "joiningDate": {
+          "type": "string",
+          "description": "Date worker joined in YYYY-MM-DD format",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "maxLength": 10
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional notes or role info (e.g., Master Chai Maker, Table cleaner)",
+          "maxLength": 250
+        },
+        "status": {
+          "type": "string",
+          "description": "Status: active or inactive",
+          "enum": ["active", "inactive"],
+          "maxLength": 10
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp in ISO 8601 string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp in ISO 8601 string",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "name", "wageType", "wageAmount", "status", "createdAt", "updatedAt"]
+    },
+    "Attendance": {
+      "title": "Attendance",
+      "description": "Daily attendance record for a worker",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the shop owner",
+          "maxLength": 128
+        },
+        "workerId": {
+          "type": "string",
+          "description": "ID of the worker",
+          "maxLength": 128
+        },
+        "workerName": {
+          "type": "string",
+          "description": "Cached name of the worker",
+          "maxLength": 120
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of attendance in YYYY-MM-DD format",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "maxLength": 10
+        },
+        "status": {
+          "type": "string",
+          "description": "Status: present, half_day, absent, or off",
+          "enum": ["present", "half_day", "absent", "off"],
+          "maxLength": 10
+        },
+        "wageMultiplier": {
+          "type": "number",
+          "description": "Multiplier for wage calculation (e.g. 1.0 for present, 0.5 for half day, 0 for absent)"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional notes (e.g. morning half day, personal leave)",
+          "maxLength": 250
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp in ISO 8601 string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp in ISO 8601 string",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "workerId", "date", "status", "createdAt", "updatedAt"]
+    },
+    "ShopStatus": {
+      "title": "ShopStatus",
+      "description": "Daily operational status of the tea shop (open, holiday, weekly_off)",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the shop owner",
+          "maxLength": 128
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of shop status in YYYY-MM-DD format",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "maxLength": 10
+        },
+        "status": {
+          "type": "string",
+          "description": "Status: open, holiday, or weekly_off",
+          "enum": ["open", "holiday", "weekly_off"],
+          "maxLength": 15
+        },
+        "isPaid": {
+          "type": "boolean",
+          "description": "Whether this holiday or off is paid to workers"
+        },
+        "holidayName": {
+          "type": "string",
+          "description": "Optional festival or reason for closure",
+          "maxLength": 120
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp in ISO 8601 string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp in ISO 8601 string",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "date", "status", "createdAt", "updatedAt"]
+    },
+    "SalaryAdvance": {
+      "title": "SalaryAdvance",
+      "description": "Worker advance payment or deduction record",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the shop owner",
+          "maxLength": 128
+        },
+        "workerId": {
+          "type": "string",
+          "description": "ID of the worker",
+          "maxLength": 128
+        },
+        "workerName": {
+          "type": "string",
+          "description": "Name of the worker",
+          "maxLength": 120
+        },
+        "amount": {
+          "type": "number",
+          "description": "Advance or deduction amount in INR"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type: advance or deduction",
+          "enum": ["advance", "deduction"],
+          "maxLength": 15
+        },
+        "date": {
+          "type": "string",
+          "description": "Date in YYYY-MM-DD format",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "maxLength": 10
+        },
+        "reason": {
+          "type": "string",
+          "description": "Optional reason for advance/deduction",
+          "maxLength": 250
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp in ISO 8601 string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp in ISO 8601 string",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "workerId", "amount", "type", "date", "createdAt", "updatedAt"]
+    },
+    "SalaryPayment": {
+      "title": "SalaryPayment",
+      "description": "Recorded salary settlement paid to a worker",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the shop owner",
+          "maxLength": 128
+        },
+        "workerId": {
+          "type": "string",
+          "description": "ID of the worker",
+          "maxLength": 128
+        },
+        "workerName": {
+          "type": "string",
+          "description": "Name of the worker",
+          "maxLength": 120
+        },
+        "month": {
+          "type": "string",
+          "description": "Salary month in YYYY-MM format",
+          "pattern": "^[0-9]{4}-[0-9]{2}$",
+          "maxLength": 7
+        },
+        "amount": {
+          "type": "number",
+          "description": "Salary amount paid in INR"
+        },
+        "paymentDate": {
+          "type": "string",
+          "description": "Date payment was settled in YYYY-MM-DD format",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "maxLength": 10
+        },
+        "expenseId": {
+          "type": "string",
+          "description": "Linked business expense ID in expenses collection",
+          "maxLength": 128
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional payment notes (e.g. Paid in cash, UPI)",
+          "maxLength": 250
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp in ISO 8601 string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp in ISO 8601 string",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "workerId", "month", "amount", "paymentDate", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/sales/{saleId}": {
+      "schema": "Sale",
+      "description": "Collection of sales records created by the shop owner"
+    },
+    "/users/{userId}/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "Collection of expense records created by the shop owner"
+    },
+    "/users/{userId}/settings/{settingDoc}": {
+      "schema": "Settings",
+      "description": "User preferences and tea shop configuration"
+    },
+    "/users/{userId}/workers/{workerId}": {
+      "schema": "Worker",
+      "description": "Tea shop staff and worker profiles"
+    },
+    "/users/{userId}/attendance/{attendanceId}": {
+      "schema": "Attendance",
+      "description": "Daily worker attendance records (present, half_day, absent, off)"
+    },
+    "/users/{userId}/shopStatus/{date}": {
+      "schema": "ShopStatus",
+      "description": "Daily shop operational status (open, holiday, weekly_off)"
+    },
+    "/users/{userId}/salaryAdvances/{advanceId}": {
+      "schema": "SalaryAdvance",
+      "description": "Worker salary advances and deduction entries"
+    },
+    "/users/{userId}/salaryPayments/{paymentId}": {
+      "schema": "SalaryPayment",
+      "description": "Settled salary disbursements linked with business expenses"
+    }
+  }
+}
